@@ -1,11 +1,10 @@
 import React, {useEffect,useState} from 'react';
 import {fetchDailyData} from '../../api';
 import {Line, Bar} from 'react-chartjs-2';
-
 import styles from './Chart.module.css';
 import { colors } from '@material-ui/core';
 import { green, blue } from '@material-ui/core/colors';
-const Chart = () => {
+const Chart = ({data: {confirmed, recovered, deaths},country}) => {
     // representation of a class based components
     // state={
     //     dailyData: {},
@@ -19,7 +18,7 @@ const Chart = () => {
         }
         //console.log(dailyData);
         fetchAPI()
-    });
+    }, []);
     
     const LineChart = (
 
@@ -43,13 +42,28 @@ const Chart = () => {
 
     );
 
-    // const BarChart =(
-
-    // );
+    const BarChart =(
+        confirmed ? (
+            <Bar
+            data = {{
+                labels: ['Infected',  'Deaths', 'Recovered'],
+                datasets: [{
+                    label : 'People',
+                    backgroundColor: ['rgba(0, 0, 255, 0.5)', 'red', 'green'],
+                    data : [confirmed.value, deaths.value , recovered.value, ],
+                }], 
+            }}
+            options ={{
+                legend : {display:false},
+                tittle: {display: true, text: `Current State in ${country}`},
+            }}
+            />
+        ) : null
+    );
 
     return (
         <div className={styles.container}>
-            {LineChart}
+            {country ? BarChart: LineChart } 
 
         </div>
     )
