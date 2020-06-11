@@ -1,0 +1,10 @@
+.formControl {
+    width: 70%;
+    margin-bottom: 30px !important;
+    /* background-color: white; */
+    border-bottom : 12px solid white;
+}
+
+option {
+    margin-left: 20px;
+}
